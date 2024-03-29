@@ -32,12 +32,17 @@
 	overflow: scroll;
 }
 
-.xFilter{
+.xFilter, .yFilter{
 	width: 100%;
 	margin: auto;
 	height: 100px;
 	overflow-x: auto;
 	white-space: nowrap;
+}
+
+.filterFront{
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 .filter{
@@ -56,7 +61,10 @@
 	border: 2px solid black;
 	color: white;
 	background-color: black;
+	box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
+
 	opacity: 1;
+	
 }
 
 .fade {
@@ -65,7 +73,9 @@
 
 #playercard{
 	width: 350px;
-	height: 350px
+	height: 350px;
+	background-color: rgb(245, 242, 242);
+	box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
 }
 
 .stackedTable {

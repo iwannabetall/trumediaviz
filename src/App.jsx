@@ -10,7 +10,9 @@ function App() {
   const [playersData, setPlayersData] = useState([])
 	const [xVar, setXVar] = useState('GDP')
 	const [yVar, setYVar] = useState('BA')
-	const [selectedPlayerData, setSelectedPlayerData] = useState()
+	const [showYFilter, setShowYFilter] = useState(false)
+	const [showXFilter, setShowXFilter] = useState(false)
+ 	const [selectedPlayerData, setSelectedPlayerData] = useState()
 	const [selPosition, setSelPosition] = useState('')
 
 	const categories = ['1B', '2B', '3B', 'AB', 'BA', 'BB', 'CS', 'GDP', 'H', 'HBP', 'HR', 'K', 'OBP', 'R', 'RBI', 'SB', 'SF', 'SH', 'SLG', 'TB', 'XBH']
@@ -92,12 +94,12 @@ function App() {
 		const w = 500
 
 		const margin = 30;
-		const marginLeft = 45;
+		const marginLeft = 55;
 		const marginTop = 40;
 
 		const colors = d3.scaleOrdinal().domain([...new Set(playersData.map(x=> x.pos).sort())]).range(d3.schemePaired)
 
-		const xScale = d3.scaleLinear().domain([Math.min(...playersData.map(x=> x[`${xVar}`])), Math.max(...playersData.map(x=> x[`${xVar}`]))]).range([marginLeft, w-margin])
+		const xScale = d3.scaleLinear().domain([Math.min(...playersData.map(x=> x[`${xVar}`])), Math.max(...playersData.map(x=> x[`${xVar}`]))]).range([marginLeft, w-margin/2])
 
 		const yScale = d3.scaleLinear().domain([Math.max(...playersData.map(x=> x[`${yVar}`])), Math.min(...playersData.map(x=> x[`${yVar}`]))]).range([margin, h-marginTop])
 
@@ -181,7 +183,7 @@ function App() {
 			)
 
 		svg.append('g')			
-			.attr('transform', `translate(${margin+5}, 0)`)
+			.attr('transform', `translate(${marginLeft-8}, 0)`)
 			.call(d3.axisLeft(yScale))
 			.call(g => g.append('text')
 				.attr('font-size', '14px')
@@ -237,7 +239,14 @@ function App() {
 			<h4>Drag and select a region to zoom. Double click on the chart to zoom out/reset. Hover over a dot to look a player. Hover over the legend to highlight by position.</h4>
 			<div className='flex flex-col justify-center items-center'>
 				<div className='container'>
-					<div className='vertwrapper'>{categories.map(cat => <div key={`y-${cat}`} className={`${cat == yVar ? 'selected' : ''} filter`} onClick={()=> setYVar(cat)}>{cat}</div>)} </div>
+					{!showYFilter && <div className='filterFront' onClick={()=> setShowYFilter(!showYFilter)}>
+						Change {yVar} Stat
+					</div>}
+					{showYFilter && <div>
+						<div className='filterFront' onClick={() => setShowYFilter(!showYFilter)}>Hide Filter</div>
+							<div className='vertwrapper'>{categories.map(cat => <div key={`y-${cat}`} className={`${cat == yVar ? 'selected' : ''} filter`} onClick={()=> setYVar(cat)}>{cat}</div>)} </div>
+						</div>
+					}
 					<div id='dataviz'></div>
 					<div id='playercard'>
 						{!selectedPlayerData && <div>Hover over a circle to select a player!</div>}
@@ -250,7 +259,15 @@ function App() {
 						</div>
 				</div>				
 
-				<div className='xFilter'>{categories.map(cat => <div className={`${cat == xVar ? 'selected' : ''} filter`} onClick={()=> setXVar(cat)}>{cat}</div>)} </div>
+				{!showXFilter && <div className='filterFront' onClick={()=> setShowXFilter(!showXFilter)}>
+						Change {xVar} Stat
+					</div>}
+
+				{showXFilter && <div>
+					<div className='xFilter'>{categories.map(cat => <div className={`${cat == xVar ? 'selected' : ''} filter`} onClick={()=> setXVar(cat)}>{cat}</div>)} </div>
+					<div className='filterFront' onClick={()=> setShowXFilter(!showXFilter)}>Hide Filter</div>
+				</div>}
+				
 			</div>
 		
 			
