@@ -3,20 +3,15 @@ import './App.css'
 import * as d3 from 'd3';
 import StackedStatsTable from './StackedStatsTable.jsx';
 
-// define outside function or it wont retain 
 var playerDataFull = []
-
 
 function App() {
 
   const [playersData, setPlayersData] = useState([])
 	const [xVar, setXVar] = useState('GDP')
 	const [yVar, setYVar] = useState('BA')
-	// const [selectedPlayer, setSelectedPlayer] = useState<string>('')
 	const [selectedPlayerData, setSelectedPlayerData] = useState()
 	const [selPosition, setSelPosition] = useState('')
-
-	// const positions = ['2B', 'RF', '1B', 'SS', 'CF', 'TWP', 'C', 'LF', '3B', 'DH', 'OF']
 
 	const categories = ['1B', '2B', '3B', 'AB', 'BA', 'BB', 'CS', 'GDP', 'H', 'HBP', 'HR', 'K', 'OBP', 'R', 'RBI', 'SB', 'SF', 'SH', 'SLG', 'TB', 'XBH']
 
@@ -135,11 +130,10 @@ function App() {
 		})
 		.extent([[marginLeft-10,0], [w, h-margin]])  // overlay sizing
 	
-			//!!!! must create brush before appending bc it overlays a rect that will block mouseover events
-			svg.append('g').attr('class', 'brush')
-				.call(brush)
-				.on("dblclick", function() {
-					setPlayersData(playerDataFull)})		
+		svg.append('g').attr('class', 'brush')
+			.call(brush)
+			.on("dblclick", function() {
+				setPlayersData(playerDataFull)})		
 
 		let scatter = svg.selectAll('circle').data(playersData, function(d) {
 			return d.playerId
@@ -151,7 +145,6 @@ function App() {
 			})
 			.on('mouseover', function(_, d) {
 
-				// setSelectedPlayer(d.playerId)
 				setSelectedPlayerData(playerDataFull.filter(x=> x.playerId == d.playerId)[0])
 
 			})
@@ -175,7 +168,6 @@ function App() {
 				return colors(d.pos)
 				
 			})
-			
 		
 		svg.append('g')
 			.attr('transform', `translate(0, ${h-margin})`)
@@ -222,7 +214,6 @@ function App() {
 				setSelPosition('')
 			})
 
-		// if i use .join(), brush overlay rect disappears
 		legend.enter().append('text')
 			.attr('fill', 'black')
 			.attr('y', -35)
@@ -234,7 +225,6 @@ function App() {
 			.text(function(d) {
 				return d
 			})
-		console.log(d3.schemePaired)
 		}
 		
 
