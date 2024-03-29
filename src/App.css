@@ -1,0 +1,81 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+#dataviz{
+	width: 500px;
+	height: 600px;	
+	margin-left: 50px;
+	display: inline-block;
+}
+
+.container{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	height:600px;
+	margin-bottom: 50px;
+}
+
+.vertwrapper{
+	width: 120px;
+	display: inline-block;
+	align-items: center;
+	justify-content: center;
+	height: 600px;
+	overflow: scroll;
+}
+
+.xFilter{
+	width: 100%;
+	margin: auto;
+	height: 100px;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.filter{
+	text-align: center;
+	margin-bottom: 5px;
+	margin: 5px;
+	padding: 5px;
+	min-width: 45px ;
+	display: inline-block;
+	border-radius: 15px;
+	cursor: pointer;
+	border: 1px black solid;
+}
+
+.selected{
+	border: 2px solid black;
+	color: white;
+	background-color: black;
+	opacity: 1;
+}
+
+.fade {
+	opacity: 0.4;
+}
+
+#playercard{
+	width: 350px;
+	height: 350px
+}
+
+.stackedTable {
+	width: 300px;
+	border: 1px black solid;
+	margin: auto;
+
+}
+
+.data{
+	width: 30px;
+	text-align: center;	
+}
